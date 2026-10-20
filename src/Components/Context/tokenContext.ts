@@ -13,7 +13,7 @@ export function useAuth(){
     const context = useContext(TokenContext)
 
     if(!context){
-        throw new Error("useAuth must be used inside AuthContextProvider")
+        throw new Error("useAuth must be used inside TokenContextProvider")
     }
 
     return context;

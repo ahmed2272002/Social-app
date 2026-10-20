@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { Spinner } from '@heroui/react';
 import { useQueryClient } from "@tanstack/react-query";
 
-export default function EditPost({setShowEditPost ,postId , getAllPost, initialContent = ""} : {postId :string ,  setShowEditPost : (arg0 : boolean)=> void , getAllPost?: ()=> void; initialContent?: string}) {
+export default function EditPost({setShowEditPost ,postId , getAllPost, initialContent = ""} : {postId :string ,  setShowEditPost : (arg0 : boolean)=> void , getAllPost?: ()=> void | Promise<void>; initialContent?: string}) {
 
   const queryClient = useQueryClient();
 
@@ -53,6 +53,7 @@ export default function EditPost({setShowEditPost ,postId , getAllPost, initialC
             await queryClient.invalidateQueries({
               queryKey: ["getFeed"],
             });
+            await getAllPost?.();
             
         } catch (error) {
             console.error("Failed to update post", error)

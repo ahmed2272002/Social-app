@@ -2,12 +2,12 @@ import { useContext } from "react";
 import logo from "../../assets/logo.png";
 import { Button, Dropdown, Label, Tabs } from "@heroui/react";
 import { House, Menu, MessageCircle, Settings, User } from "lucide-react";
-import { TokenContext } from "../Context/tokenContext";
+import { useAuth } from "../Context/tokenContext";
 import { Link } from "react-router";
-import { UserContext, type UserContextType } from "../Context/UserContext";
+import { UserContext } from "../Context/UserContext";
 
 function Navbar() {
-  const { setToken } = useContext(TokenContext);
+  const { setToken } = useAuth();
 
   // function to handle logout
   function Logout() {
@@ -21,7 +21,11 @@ function Navbar() {
     setToken(null);
   }
 
-  const {UserDetails} :UserContextType = useContext(UserContext)
+  const userContext = useContext(UserContext);
+  if (!userContext) {
+    throw new Error("Navbar must be used inside UserContextProvider");
+  }
+  const { UserDetails } = userContext;
 
   return (
     <>

@@ -14,16 +14,16 @@ import {
 } from "../../lib/Schemas/Auth.Schema";
 import { loginUser } from "../../Services/auth.services";
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
-import { TokenContext } from "../../Components/Context/tokenContext";
+import { useAuth } from "../../Components/Context/tokenContext";
 
 
 function Login() {
   const [ResponseMessage, setResponseMessage] = useState(null);
   const [ErrorMessage, setErrorMessage] = useState(null);
-  const {setToken} = useContext(TokenContext)
+  const {setToken} = useAuth()
 
   const navigate = useNavigate();
 

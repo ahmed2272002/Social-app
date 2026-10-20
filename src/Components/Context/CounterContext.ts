@@ -1,8 +1,7 @@
 import { createContext, type Dispatch, type SetStateAction } from "react"
 
-
-type TokenContextType = {
-  token : string | null ,
-  setToken : Dispatch<SetStateAction<string | null>>,
+type CounterContextType = {
+  counter: number,
+  setCounter: Dispatch<SetStateAction<number>>,
 }
-export const CounterContext = createContext<TokenContextType | null>(null)
+export const CounterContext = createContext<CounterContextType | null>(null)
