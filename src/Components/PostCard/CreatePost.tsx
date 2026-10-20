@@ -5,9 +5,12 @@ import toast from "react-hot-toast";
 import { Spinner } from "@heroui/react";
 import { UserContext } from "../Context/UserContext";
 import axios from "axios";
-
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function CreatePost() {
+
+  const queryClient = useQueryClient();
+
   const [content, setContent] = useState<string>("");
 
   const [image, setImage] = useState<File | null>(null);
@@ -58,7 +61,9 @@ export default function CreatePost() {
       setContent("")
       setImage(null)
       setImagePreview(null)
-      await getAllPost()
+      await queryClient.invalidateQueries({
+        queryKey: ["getFeed"],
+      });
 
       
     } catch (error) {

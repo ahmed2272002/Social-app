@@ -3,10 +3,11 @@ import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { updatePost } from '../../Services/post.services';
 import toast from 'react-hot-toast';
 import { Spinner } from '@heroui/react';
-
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function EditPost({setShowEditPost ,postId , getAllPost, initialContent = ""} : {postId :string ,  setShowEditPost : (arg0 : boolean)=> void , getAllPost?: ()=> void; initialContent?: string}) {
 
+  const queryClient = useQueryClient();
 
   const [content, setContent] = useState<string>(initialContent);
 
@@ -49,7 +50,9 @@ export default function EditPost({setShowEditPost ,postId , getAllPost, initialC
             setImage(null)
             setImagePreview(null)
             setShowEditPost(false)
-            getAllPost?.()
+            await queryClient.invalidateQueries({
+              queryKey: ["getFeed"],
+            });
             
         } catch (error) {
             console.error("Failed to update post", error)

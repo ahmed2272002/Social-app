@@ -1,4 +1,4 @@
-import React from 'react'
+
 const stats = [
   { value: '2012', label: 'Founded' },
   { value: '40K+', label: 'Graduates' },

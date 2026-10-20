@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import logo from "../../assets/logo.png";
-import avatar from "../../assets/avatar.png";
 import { Button, Dropdown, Label, Tabs } from "@heroui/react";
 import { House, Menu, MessageCircle, Settings, User } from "lucide-react";
 import { TokenContext } from "../Context/tokenContext";

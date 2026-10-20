@@ -1,8 +1,8 @@
-import { createContext, useContext, type Dispatch, type SetStateAction } from "react"
+import { createContext, useContext } from "react"
 
 type TokenContextType = {
     token : string | null,
-    setToken : Dispatch<SetStateAction<string | null>>
+    setToken: (token: string | null) => void;
 }
 
 export const TokenContext = createContext<TokenContextType | null>(null)

@@ -23,11 +23,14 @@ import { deletePost } from "../../Services/post.services";
 import toast from "react-hot-toast";
 import { usePostBookmark } from "./usePostBookmark";
 import EditComment from "../PostComment/EditComment";
+import { useQueryClient } from "@tanstack/react-query";
 
 function PostCard({  post,  onUnlike, onBookmarkChange, onPostDeleted, getAllPost}: {  post: PostCardInterface;  onUnlike?: () => void; onBookmarkChange?: (isBookmarked: boolean) => void; onPostDeleted?: (postId: string) => void; getAllPost?: () => void}) {
   const [allcomments, setAllComments] = useState<TopComment[] | null>(null);
   const [visibleComments, setVisibleComments] = useState(2);
   const UserDetails = useContext(UserContext)?.UserDetails
+
+  const queryClient = useQueryClient();
 
   const [DeleteDialog, setDeleteDialog] = useState<boolean>(false)
 
@@ -63,7 +66,9 @@ function PostCard({  post,  onUnlike, onBookmarkChange, onPostDeleted, getAllPos
       toast.success(data.message);
       setUpdateComment(null);
       await getComments(post._id);
-      await getAllPost?.();
+      await queryClient.invalidateQueries({
+              queryKey: ["getFeed"],
+            });
     } catch (error) {
       console.error("Failed to delete comment", error);
       toast.error("Unable to delete this comment. Please try again.");
